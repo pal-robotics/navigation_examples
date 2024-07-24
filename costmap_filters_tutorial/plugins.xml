@@ -1,0 +1,8 @@
+<class_libraries>
+    <library path="dummy_map_mask">
+      <class type="costmap_filters_tutorial::DummyMapMask" base_class_type="pal_map_masks::MapMask">
+        <description>A Dummy Map Mask</description>
+      </class>
+    </library>
+  </class_libraries>
+  
