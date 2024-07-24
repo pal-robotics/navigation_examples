@@ -17,12 +17,15 @@
   <depend>nav2_msgs</depend>
   <depend>pal_map_masks</depend>
   <depend>nav2_util</depend>
+  <depend>nav2_costmap_2d</depend>
+  <depend>geometry_msgs</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
   <export>
     <build_type>ament_cmake</build_type>
-    <costmap_filters_tutorial plugin="${prefix}/plugins.xml" />
+    <costmap_filters_tutorial plugin="${prefix}/map_mask_plugins.xml" />
+    <costmap_filters_tutorial plugin="${prefix}/costmap_filter_plugins.xml" />
   </export>
 </package>

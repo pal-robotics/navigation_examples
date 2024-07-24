@@ -11,6 +11,8 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+//
+// Author: Antonio Brandi
 
 #include "costmap_filters_tutorial/dummy_map_mask.hpp"
 #include "nav2_util/node_utils.hpp"

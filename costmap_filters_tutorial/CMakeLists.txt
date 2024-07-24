@@ -13,6 +13,8 @@ find_package(nav_msgs REQUIRED)
 find_package(nav2_msgs REQUIRED)
 find_package(pal_map_masks REQUIRED)
 find_package(nav2_util REQUIRED)
+find_package(nav2_costmap_2d REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
 include_directories(
   include
@@ -26,16 +28,21 @@ set(dependencies
   nav2_msgs
   pal_map_masks
   nav2_util
+  nav2_costmap_2d
+  geometry_msgs
 )
 
 add_library(dummy_map_mask SHARED src/dummy_map_mask.cpp)
 ament_target_dependencies(dummy_map_mask SYSTEM ${dependencies})
 
+add_library(dummy_costmap_filter SHARED src/dummy_costmap_filter.cpp)
+ament_target_dependencies(dummy_costmap_filter SYSTEM ${dependencies})
+
 install(DIRECTORY include/
   DESTINATION include/
 )
 
-install(TARGETS dummy_map_mask
+install(TARGETS dummy_map_mask dummy_costmap_filter
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
@@ -49,8 +56,9 @@ if(BUILD_TESTING)
 endif()
 
 ament_export_include_directories(include)
-ament_export_libraries(dummy_map_mask)
+ament_export_libraries(dummy_map_mask dummy_costmap_filter)
 ament_export_dependencies(${dependencies})
-pluginlib_export_plugin_description_file(pal_map_masks plugins.xml)
+pluginlib_export_plugin_description_file(pal_map_masks map_mask_plugins.xml)
+pluginlib_export_plugin_description_file(nav2_costmap_2d costmap_filter_plugins.xml)
 ament_package()
 
