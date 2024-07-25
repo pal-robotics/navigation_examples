@@ -11,6 +11,7 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
 
+
 class GoalPosePublisher(Node):
 
     def __init__(self):
@@ -38,9 +39,10 @@ class GoalPosePublisher(Node):
         msg.pose.orientation.w = 1.0
 
         self.publisher.publish(msg)
-        self.get_logger().info('Publishing goal pose: [x: %.2f, y: %.2f, z: %.2f]' % 
+        self.get_logger().info('Publishing goal pose: [x: %.2f, y: %.2f, z: %.2f]' %
                                (msg.pose.position.x, msg.pose.position.y, msg.pose.position.z))
         self.timer.cancel()
+
 
 def main(args=None):
     rclpy.init(args=args)
@@ -50,6 +52,7 @@ def main(args=None):
     rclpy.spin(publisher)
 
     rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()
