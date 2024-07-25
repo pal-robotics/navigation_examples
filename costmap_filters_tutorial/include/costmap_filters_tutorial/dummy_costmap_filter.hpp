@@ -20,6 +20,7 @@
 #include <memory>
 #include <string>
 
+#include "rclcpp/rclcpp.hpp"
 #include "nav2_costmap_2d/costmap_filters/costmap_filter.hpp"
 
 #include "geometry_msgs/msg/pose2_d.hpp"
