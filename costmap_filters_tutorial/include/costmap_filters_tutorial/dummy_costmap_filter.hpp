@@ -30,15 +30,14 @@ namespace costmap_filters_tutorial
 {
 /**
  * @class DummyCostmapFilter
- * @brief Reads in a speed restriction mask and enables a robot to
- * dynamically adjust speed based on pose in map to slow in dangerous
- * areas. Done via absolute speed setting or percentage of maximum speed
+ * @brief Reads a map mask and prints a log message
+ * when the robot is in a cell with a value higher than a threshold
  */
 class DummyCostmapFilter : public nav2_costmap_2d::CostmapFilter
 {
 public:
   /**
-   * @brief A constructor
+   * @brief DummyCostmapFilter plugin of type CostmapFilter
    */
   DummyCostmapFilter();
 
@@ -49,7 +48,7 @@ public:
     const std::string & filter_info_topic);
 
   /**
-   * @brief Process the keepout layer at the current pose / bounds / grid
+   * @brief Process the given map mask at the current pose
    */
   void process(
     nav2_costmap_2d::Costmap2D & master_grid,
@@ -71,15 +70,11 @@ private:
    * @brief Callback for the filter information
    */
   void filterInfoCallback(const nav2_msgs::msg::CostmapFilterInfo::SharedPtr msg);
+
   /**
    * @brief Callback for the filter mask
    */
   void maskCallback(const nav_msgs::msg::OccupancyGrid::SharedPtr msg);
-  /**
-   * @brief Changes binary state of filter. Sends a message with new state.
-   * @param state New binary state
-   */
-  void changeState(const bool state);
 
   // Working with filter info and mask
   rclcpp::Subscription<nav2_msgs::msg::CostmapFilterInfo>::SharedPtr filter_info_sub_;
@@ -90,9 +85,7 @@ private:
   std::string global_frame_;  // Frame of currnet layer (master_grid)
 
   double base_, multiplier_;
-  // Filter values higher than this threshold,
-  // will set binary state to non-default
-  double flip_threshold_;
+  double mask_threshold;
 };
 
 }  // namespace costmap_filters_tutorial

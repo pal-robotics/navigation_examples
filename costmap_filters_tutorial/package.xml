@@ -26,6 +26,6 @@
   <export>
     <build_type>ament_cmake</build_type>
     <costmap_filters_tutorial plugin="${prefix}/map_mask_plugins.xml" />
-    <costmap_filters_tutorial plugin="${prefix}/costmap_filter_plugins.xml" />
+    <costmap_2d plugin="${prefix}/costmap_filter_plugins.xml" />
   </export>
 </package>
