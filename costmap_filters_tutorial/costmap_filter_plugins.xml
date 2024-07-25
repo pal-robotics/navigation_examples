@@ -1,5 +1,5 @@
 <class_libraries>
-    <library path="filters">
+    <library path="dummy_costmap_filter">
       <class type="costmap_filters_tutorial::DummyCostmapFilter"   base_class_type="nav2_costmap_2d::Layer">
         <description>A Dummy Costmap Filter</description>
       </class>

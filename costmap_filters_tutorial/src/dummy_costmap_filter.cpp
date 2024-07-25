@@ -39,13 +39,8 @@ void DummyCostmapFilter::initializeFilter(
   }
 
   // Declare parameters specific to DummyCostmapFilter only
-  std::string binary_state_topic;
-  declareParameter("default_state", rclcpp::ParameterValue(false));
-//   node->get_parameter(name_ + "." + "default_state", default_state_);
-  declareParameter("binary_state_topic", rclcpp::ParameterValue("binary_state"));
-  node->get_parameter(name_ + "." + "binary_state_topic", binary_state_topic);
-  declareParameter("flip_threshold", rclcpp::ParameterValue(50.0));
-  node->get_parameter(name_ + "." + "flip_threshold", flip_threshold_);
+  declareParameter("mask_threshold", rclcpp::ParameterValue(50.0));
+  node->get_parameter(name_ + "." + "mask_threshold", mask_threshold);
 
   filter_info_topic_ = filter_info_topic;
   // Setting new costmap filter info subscriber
@@ -78,15 +73,10 @@ void DummyCostmapFilter::filterInfoCallback(
   } else {
     RCLCPP_WARN(
       logger_,
-      "DummyCostmapFilter: New costmap filter info arrived from %s topic. Updating old filter info.",
+      "DummyCostmapFilter: New costmap filter info from %s topic. Updating old filter info.",
       filter_info_topic_.c_str());
     // Resetting previous subscriber each time when new costmap filter information arrives
     mask_sub_.reset();
-  }
-
-  if (msg->type != nav2_costmap_2d::BINARY_FILTER) {
-    RCLCPP_ERROR(logger_, "DummyCostmapFilter: Mode %i is not supported", msg->type);
-    return;
   }
 
   // Set base_ and multiplier_
@@ -154,7 +144,6 @@ void DummyCostmapFilter::process(
     RCLCPP_WARN(
       logger_,
       "DummyCostmapFilter: Robot is outside of filter mask. Resetting binary state to default.");
-    // changeState(default_state_);
     return;
   }
 
@@ -169,31 +158,20 @@ void DummyCostmapFilter::process(
       mask_robot_i, mask_robot_j);
     return;
   }
-  // Check and flip binary state, if necessary
-//   if (base_ + mask_data * multiplier_ > flip_threshold_) {
-//     if (binary_state_ == default_state_) {
-//       changeState(!default_state_);
-//     }
-//   } else {
-//     if (binary_state_ != default_state_) {
-//       changeState(default_state_);
-//     }
-//   }
+  // Check mask threshold
+  if (base_ + mask_data * multiplier_ > mask_threshold) {
+    RCLCPP_INFO(logger_, "Robot is Inside the mask");
+  } else {
+    RCLCPP_INFO(logger_, "Robot is Outside the mask");
+  }
 }
 
 void DummyCostmapFilter::resetFilter()
 {
   std::lock_guard<CostmapFilter::mutex_t> guard(*getMutex());
 
-  RCLCPP_INFO(logger_, "DummyCostmapFilter: Resetting the filter to default state");
-//   changeState(default_state_);
-
   filter_info_sub_.reset();
   mask_sub_.reset();
-//   if (binary_state_pub_) {
-//     binary_state_pub_->on_deactivate();
-//     binary_state_pub_.reset();
-//   }
 }
 
 bool DummyCostmapFilter::isActive()
@@ -204,22 +182,6 @@ bool DummyCostmapFilter::isActive()
     return true;
   }
   return false;
-}
-
-void DummyCostmapFilter::changeState(const bool state)
-{
-//   binary_state_ = state;
-  if (state) {
-    RCLCPP_INFO(logger_, "DummyCostmapFilter: Switched on");
-  } else {
-    RCLCPP_INFO(logger_, "DummyCostmapFilter: Switched off");
-  }
-
-  // Forming and publishing new BinaryState message
-//   std::unique_ptr<std_msgs::msg::Bool> msg =
-//     std::make_unique<std_msgs::msg::Bool>();
-//   msg->data = state;
-//   binary_state_pub_->publish(std::move(msg));
 }
 
 }  // namespace costmap_filters_tutorial
