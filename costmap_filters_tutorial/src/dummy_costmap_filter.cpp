@@ -96,7 +96,7 @@ public:
       return;
     }
 
-    geometry_msgs::msg::Pose2D mask_pose; // robot coordinates in mask frame
+    geometry_msgs::msg::Pose2D mask_pose;  // robot coordinates in mask frame
 
     // Transforming robot pose from current layer frame to mask frame
     if (!transformPose(global_frame_, pose, filter_mask_->header.frame_id, mask_pose)) {
