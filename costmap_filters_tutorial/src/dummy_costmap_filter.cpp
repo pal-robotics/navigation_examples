@@ -17,6 +17,7 @@
 #include <memory>
 #include <string>
 
+#include "rclcpp/rclcpp.hpp"
 #include "rclcpp_lifecycle/lifecycle_node.hpp"
 #include "costmap_filters_tutorial/dummy_costmap_filter.hpp"
 
