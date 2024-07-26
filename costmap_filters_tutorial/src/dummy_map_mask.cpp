@@ -14,19 +14,41 @@
 //
 // Author: Antonio Brandi
 
-#include "costmap_filters_tutorial/dummy_map_mask.hpp"
+#include <string>
+#include <memory>
+
+#include "rclcpp/rclcpp.hpp"
+#include "rclcpp_lifecycle/lifecycle_node.hpp"
+#include "nav_msgs/msg/occupancy_grid.hpp"
+#include "nav2_msgs/msg/costmap_filter_info.hpp"
+#include "pal_map_masks/core/map_mask.hpp"
 #include "nav2_util/node_utils.hpp"
 
 
 namespace costmap_filters_tutorial
 {
-DummyMapMask::DummyMapMask()
-: mask_topic_("/dummy_mask") {}
-
-void DummyMapMask::configure(
-  const rclcpp_lifecycle::LifecycleNode::WeakPtr & parent,
-  const std::string & plugin_name)
+class DummyMapMask : public pal_map_masks::MapMask
 {
+public:
+  /**
+   * @brief DummyMapMask plugin of type MapMask
+  */
+  DummyMapMask(): mask_topic_("/dummy_mask") {}
+
+  /**
+   * @brief DummyMapMask destructor
+  */
+  ~DummyMapMask() = default;
+
+  /**
+   * @brief Overridden method to configure DummyMapMask plugin.
+   * @param parent pointer to user's node
+   * @param plugin_name name of the plugin assigned at runtime
+  */
+  void configure(
+    const rclcpp_lifecycle::LifecycleNode::WeakPtr & parent,
+    const std::string & plugin_name) override
+  {
   plugin_name_ = plugin_name;
   auto node = parent.lock();
   if (!node) {
@@ -57,25 +79,37 @@ void DummyMapMask::configure(
     rclcpp::QoS(rclcpp::KeepLast(1)).transient_local().reliable());
 }
 
-void DummyMapMask::cleanup()
-{
+  /**
+   * @brief Overridden method to cleanup DummyMapMask plugin.
+   */
+  void cleanup() override
+  {
   RCLCPP_INFO(logger_, "Cleaning DummyMapMask plugin");
   costmap_filter_info_publisher_.reset();
   mask_publisher_.reset();
 }
 
-void DummyMapMask::activate()
-{
+  /**
+   * @brief Overridden method to activate DummyMapMask plugin.
+   */
+  void activate() override
+  {
   RCLCPP_INFO(logger_, "Activating DummyMapMask plugin");
 }
 
-void DummyMapMask::deactivate()
-{
+  /**
+   * @brief Overridden method to deactivate DummyMapMask plugin.
+   */
+  void deactivate() override
+  {
   RCLCPP_INFO(logger_, "Deactivating DummyMapMask plugin");
 }
 
-bool DummyMapMask::generateMask()
-{
+  /**
+   * @brief Overridden method to implement logic for the Mask generation of DummyMapMask plugin.
+   */
+  bool generateMask() override
+  {
   auto locked_node = node_.lock();
   if (!locked_node) {
     throw std::runtime_error("Unable to Lock Parent Node");
@@ -98,6 +132,24 @@ bool DummyMapMask::generateMask()
   mask_publisher_->publish(*occupancy_grid);
   return true;
 }
+
+private:
+  // Interfaces
+  rclcpp_lifecycle::LifecycleNode::WeakPtr node_;
+  rclcpp::Logger logger_ {rclcpp::get_logger("DummyMapMask")};
+
+  // ROS2 service interfaces
+  rclcpp::TimerBase::SharedPtr timer_;
+  rclcpp::Publisher<nav2_msgs::msg::CostmapFilterInfo>::SharedPtr costmap_filter_info_publisher_;
+  rclcpp::Publisher<nav_msgs::msg::OccupancyGrid>::SharedPtr mask_publisher_;
+
+  // Info msg
+  nav2_msgs::msg::CostmapFilterInfo costmap_filter_info_msg_;
+
+  // Parameters
+  std::string mask_topic_;
+  std::string plugin_name_;
+};
 }  // namespace costmap_filters_tutorial
 
 #include "pluginlib/class_list_macros.hpp"
