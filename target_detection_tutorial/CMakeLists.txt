@@ -9,16 +9,16 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
-find_package(geometry_msgs REQUIRED)
 find_package(pal_nav2_core REQUIRED)
 find_package(pluginlib REQUIRED)
+find_package(tf2_ros REQUIRED)
 
 set(dependencies
   rclcpp
   rclcpp_lifecycle
-  geometry_msgs
   pal_nav2_core
   pluginlib
+  tf2_ros
 )
 
 add_library(dummy_target_detector SHARED src/dummy_target_detector.cpp)

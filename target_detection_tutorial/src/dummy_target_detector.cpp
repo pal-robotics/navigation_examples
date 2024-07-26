@@ -19,11 +19,8 @@
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp/clock.hpp"
 #include "rclcpp_lifecycle/lifecycle_node.hpp"
-#include "tf2/convert.h"
 #include "tf2_ros/buffer.h"
-#include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
 #include "pal_nav2_core/target_detector.hpp"
-#include "nav_msgs/msg/odometry.hpp"
 
 namespace target_detection_tutorial
 {
