@@ -17,6 +17,9 @@
 #include <memory>
 #include <string>
 
+#include "rclcpp_lifecycle/lifecycle_node.hpp"
+#include "costmap_filters_tutorial/dummy_costmap_filter.hpp"
+
 #include "nav2_util/occ_grid_values.hpp"
 #include "nav2_costmap_2d/costmap_filters/filter_values.hpp"
 #include "nav2_costmap_2d/costmap_filters/costmap_filter.hpp"
