@@ -1,0 +1,7 @@
+<class_libraries>
+    <library path="dummy_action_at_waypoint">
+        <class type="waypoint_navigation_tutorial::DummyActionAtWaypoint" base_class_type="nav2_core::WaypointTaskExecutor">
+            <description>Prints a message in the log upon the waypoint arrival</description>
+        </class>
+    </library>
+</class_libraries>
