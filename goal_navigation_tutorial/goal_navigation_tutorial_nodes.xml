@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<root>
+    <TreeNodesModel>
+    
+        <Action ID="LogPrinter">
+            <input_port name="log_text">Message to display</input_port>
+            <input_port name="log_level"> Log level, could be: INFO, WARN, ERROR</input_port>
+          </Action>
+
+    </TreeNodesModel>
+</root>
