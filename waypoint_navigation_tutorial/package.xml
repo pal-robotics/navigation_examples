@@ -3,8 +3,9 @@
   <name>waypoint_navigation_tutorial</name>
   <version>0.0.0</version>
   <description>The waypoint_navigation_tutorial example.</description>
-  <maintainer email="martina.annicelli@pal-robotics.com">user</maintainer>
+  <maintainer email="martina.annicelli@pal-robotics.com">Martina Annicelli</maintainer>
   <license>PAL Robotics S.L</license>
+  <author email="martina.annicelli@pal-robotics.com">Martina Annicelli</author>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
