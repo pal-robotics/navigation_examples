@@ -1,3 +1,12 @@
+// Copyright (c) 2023 PAL Robotics S.L. All rights reserved.
+//
+// Unauthorized copying of this file, via any medium is strictly prohibited,
+// unless it was supplied under the terms of a license agreement or
+// nondisclosure agreement with PAL Robotics SL. In this case it may not be
+// copied or disclosed except in accordance with the terms of that agreement.
+//
+// Author: Martina Annicelli
+
 #include <string>
 #include <memory>
 #include <vector>
@@ -27,7 +36,8 @@ public:
 
   ~DummyActionAtWaypoint() = default;
 
-  void initialize(const rclcpp_lifecycle::LifecycleNode::WeakPtr& parent, const std::string& plugin_name) override
+  void initialize(const rclcpp_lifecycle::LifecycleNode::WeakPtr& parent,
+    const std::string& plugin_name) override
   {
     parent_ = parent;
     auto node = parent_.lock();
@@ -37,11 +47,13 @@ public:
     }
     logger_ = node->get_logger();
 
-    nav2_util::declare_parameter_if_not_declared(node, plugin_name + ".enabled", rclcpp::ParameterValue(is_enabled_));
+    nav2_util::declare_parameter_if_not_declared
+      (node, plugin_name + ".enabled", rclcpp::ParameterValue(is_enabled_));
     node->get_parameter(plugin_name + ".enabled", is_enabled_);
   }
 
-  bool processAtWaypoint(const geometry_msgs::msg::PoseStamped& /*curr_pose*/, const int& curr_waypoint_index) override
+  bool processAtWaypoint(const geometry_msgs::msg::PoseStamped& /*curr_pose*/,
+    const int& curr_waypoint_index) override
   {
     if (!is_enabled_)
     {
@@ -55,7 +67,7 @@ public:
       throw std::runtime_error{ "Failed to lock node in dummy action at waypoint plugin!" };
     }
 
-    // Here you can do your custom action
+    // Here you can implement your custom action
 
     RCLCPP_INFO(logger_, "Arrived at %i'th waypoint", curr_waypoint_index);
     return true;
@@ -64,4 +76,5 @@ public:
 }  // namespace waypoint_navigation_tutorial
 
 #include "pluginlib/class_list_macros.hpp"
-PLUGINLIB_EXPORT_CLASS(waypoint_navigation_tutorial::DummyActionAtWaypoint, nav2_core::WaypointTaskExecutor)
+PLUGINLIB_EXPORT_CLASS(waypoint_navigation_tutorial::DummyActionAtWaypoint,
+  nav2_core::WaypointTaskExecutor)

@@ -4,7 +4,7 @@
   <version>0.0.0</version>
   <description>The waypoint_navigation_tutorial example.</description>
   <maintainer email="martina.annicelli@pal-robotics.com">user</maintainer>
-  <license>Apache-2.0</license>
+  <license>PAL Robotics S.L</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
