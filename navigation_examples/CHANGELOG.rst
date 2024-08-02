@@ -2,8 +2,8 @@
 Changelog for package navigation_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.1 (2024-08-02)
+------------------
 * Merge branch 'abr/feat/costmap-filters-tutorial' into 'main'
   Add Costmap Filters tutorials
   See merge request navigation/navigation_examples!2

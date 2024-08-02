@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>costmap_filters_tutorial</name>
-  <version>0.0.0</version>
+  <version>0.0.1</version>
   <description>Tutorial package for the creation of a new Costmap Filter</description>
   <maintainer email="antonio.brandi@pal-robotics.com">Antonio Brandi</maintainer>
   <license>Apache License 2.0</license>
