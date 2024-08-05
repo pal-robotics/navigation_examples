@@ -1,0 +1,263 @@
+buildings:
+  - name: small_office
+    timezone: Europe/Madrid
+    is_active: false
+    is_enabled: true
+    properties:
+      []
+
+building_anchors:
+  - name: simple_building_anchor
+    type: 0
+    is_active: false
+    is_enabled: true
+    parent_key: small_office
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: elevator
+    type: 1
+    is_active: false
+    is_enabled: true
+    parent_key: hospital
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+
+floors:
+  - name: small_office_floor
+    level: 0
+    is_active: false
+    is_enabled: true
+    parent_key: small_office
+    anchor_key: small_office/simple_building_anchor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+
+
+floor_anchors:
+  - name: simple_floor_anchor
+    type: 0
+    is_active: false
+    is_enabled: true
+    parent_key: small_office/small_office_floor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+
+
+waypoints:
+  - name: waypoint_1
+    is_active: false
+    is_enabled: true
+    parent_key: small_office/small_office_floor
+    transform:
+      translation:
+        x: 4
+        y: -4
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: waypoint_2
+    is_active: false
+    is_enabled: true
+    parent_key: small_office/small_office_floor
+    transform:
+      translation:
+        x: 4
+        y: -11
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+
+
+waypoint_lists:
+  - name: list_1
+    is_active: false
+    is_enabled: false
+    parent_key: small_office/small_office_floor
+    waypoint_keys:
+      - small_office/small_office_floor/waypoint_1
+      - small_office/small_office_floor/waypoint_2
+
+
+lanes:
+  - name: wall_1
+    type: 1
+    width: 0.25
+    is_active: false
+    is_enabled: true
+    parent_key: small_office/small_office_floor
+    vertexes:
+      - transform:
+          translation:
+            x: -4.8399999999999999
+            y: 2
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 5
+            y: 1.8
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 4.7999999999999998
+            y: -12.800000000000001
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: highway
+    type: 2
+    width: 0.25
+    is_active: false
+    is_enabled: true
+    parent_key: small_office/small_office_floor
+    vertexes:
+      - transform:
+          translation:
+            x: -3
+            y: 0
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 1.5
+            y: 0
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 1.5
+            y: -7
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+
+
+zones:
+  - name: vo_table
+    type: 1
+    is_active: false
+    is_enabled: true
+    parent_key: small_office/small_office_floor
+    vertexes:
+      - transform:
+          translation:
+            x: 0
+            y: -6
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 0
+            y: -11.5
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -2
+            y: -11.5
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -2
+            y: -6
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+
+maps:
+  - name: small_office
+    filename: /opt/pal/alum/share/pal_maps/maps/small_office/map.yaml
+    frame_id: map
+    is_active: false
+    is_enabled: true
+    type: 1
+    namespace: ""
+    parent_key: small_office/small_office_floor
+    anchor_key: small_office/small_office_floor/simple_floor_anchor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
