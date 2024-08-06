@@ -29,7 +29,7 @@ public:
 
   void configure(
     const rclcpp_lifecycle::LifecycleNode::WeakPtr & parent, std::string name,
-    std::shared_ptr<tf2_ros::Buffer> tf) override
+    std::shared_ptr<tf2_ros::Buffer> ) override
   {
     parent_ = parent;
     auto node = parent_.lock();
