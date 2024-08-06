@@ -74,7 +74,7 @@ public:
     transform.header.frame_id = "base_footprint";
     transform.child_frame_id = "target";
     transform.header.stamp = clock_->now();
-    transform.transform.translation.x = transform.transform.translation.x + 2.0;            
+    transform.transform.translation.x = 2.0;            
 
     return true;
   }
