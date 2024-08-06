@@ -51,6 +51,11 @@ public:
     RCLCPP_INFO(logger_, "Activating %s target detector", plugin_name_.c_str());
   }
 
+  void deactivate() override
+  {
+    RCLCPP_INFO(logger_, "DummyTargetDetector: Deactivating target detector");
+  }
+
   bool detectTarget(
     int id, geometry_msgs::msg::TransformStamped & transform,
     double & accuracy) override
