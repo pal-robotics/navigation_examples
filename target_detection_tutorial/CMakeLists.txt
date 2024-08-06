@@ -9,6 +9,10 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
+<<<<<<< HEAD
+=======
+find_package(geometry_msgs REQUIRED)
+>>>>>>> 6b91bc5 (with resolved threads and reformat)
 find_package(pal_nav2_core REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(tf2_ros REQUIRED)
