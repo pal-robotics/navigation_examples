@@ -23,7 +23,6 @@ namespace target_detection_tutorial
 
 class DummyTargetDetector : public pal_nav2_core::TargetDetector
 {
-
 public:
   DummyTargetDetector() = default;
   ~DummyTargetDetector() = default;
@@ -37,7 +36,6 @@ public:
     if (!node) {
       throw std::runtime_error{"Failed to lock node in simple target detector plugin!"};
     }
-    tf_ = tf;
     plugin_name_ = name;
     logger_ = node->get_logger();
     clock_ = node->get_clock();
@@ -45,21 +43,12 @@ public:
 
   void cleanup() override
   {
-    RCLCPP_INFO(logger_, "DummyTargetDetector: Cleaning up target detector");
+    RCLCPP_INFO(logger_, "Cleaning up %s target detector", plugin_name_.c_str());
   }
 
   void activate() override
   {
-    RCLCPP_INFO(logger_, "DummyTargetDetector: Activating target detector");
-    auto node = parent_.lock();
-    if (!node) {
-      throw std::runtime_error{"Failed to lock node in simple target detector plugin!"};
-    }
-  }
-
-  void deactivate() override
-  {
-    RCLCPP_INFO(logger_, "DummyTargetDetector: Deactivating target detector");
+    RCLCPP_INFO(logger_, "Activating %s target detector", plugin_name_.c_str());
   }
 
   bool detectTarget(
@@ -67,14 +56,14 @@ public:
     double & accuracy) override
   {
     if (id != 0) {
-      RCLCPP_WARN(logger_, "DummyTargetDetector: Target not detected");
+      RCLCPP_WARN(logger_, "%s: Target not detected", plugin_name_.c_str());
       return false;
     }
     accuracy = 0.8;
     transform.header.frame_id = "base_footprint";
     transform.child_frame_id = "target";
     transform.header.stamp = clock_->now();
-    transform.transform.translation.x = 2.0;            
+    transform.transform.translation.x = 2.0;
 
     return true;
   }
@@ -82,11 +71,8 @@ public:
 private:
   rclcpp::Logger logger_{rclcpp::get_logger("dummy_target_detector")};
   rclcpp_lifecycle::LifecycleNode::WeakPtr parent_;
-  rclcpp::Clock::SharedPtr clock_;  
-  
-  std::shared_ptr<tf2_ros::Buffer> tf_;
+  rclcpp::Clock::SharedPtr clock_;
   std::string plugin_name_;
-
 };
 }  // namespace target_detection_tutorial
 #include "pluginlib/class_list_macros.hpp"
