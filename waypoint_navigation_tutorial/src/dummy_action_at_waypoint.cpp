@@ -60,7 +60,7 @@ public:
     node->get_parameter(plugin_name + ".enabled", is_enabled_);
   }
 
-  bool processAtWaypoint(const geometry_msgs::msg::PoseStamped& /*curr_pose*/,
+  bool processAtWaypoint(const geometry_msgs::msg::PoseStamped& ,
     const int& curr_waypoint_index) override
   {
     if (!is_enabled_)
