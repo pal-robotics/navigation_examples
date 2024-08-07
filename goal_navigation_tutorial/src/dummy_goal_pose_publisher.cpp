@@ -19,7 +19,7 @@ public:
     publisher_ = this->create_publisher<geometry_msgs::msg::PoseStamped>("/goal_pose", 10);
     timer_ = this->create_wall_timer(
       std::chrono::seconds(1),
-      [this]() { this->timer_callback(); }
+      [this]() {this->timer_callback();}
     );
   }
 
@@ -43,13 +43,14 @@ private:
     msg.pose.orientation.w = 1.0;
 
     publisher_->publish(msg);
-    RCLCPP_INFO(this->get_logger(), "Publishing goal pose: [x: %.2f, y: %.2f, z: %.2f]",
-                msg.pose.position.x, msg.pose.position.y, msg.pose.position.z);
+    RCLCPP_INFO(
+      this->get_logger(), "Publishing goal pose: [x: %.2f, y: %.2f, z: %.2f]",
+      msg.pose.position.x, msg.pose.position.y, msg.pose.position.z);
     timer_->cancel();
   }
 };
 
-int main(int argc, char **argv)
+int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
 

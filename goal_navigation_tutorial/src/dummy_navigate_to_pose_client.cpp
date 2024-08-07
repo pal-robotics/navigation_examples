@@ -29,12 +29,12 @@ public:
   : Node("navigate_to_pose_action_client", options)
   {
     this->client_ptr_ = rclcpp_action::create_client<NavigateToPose>(
-            this,
-            "/navigate_to_pose");
+      this,
+      "/navigate_to_pose");
 
     this->timer_ = this->create_wall_timer(
-            std::chrono::milliseconds(500),
-            std::bind(&NavigateToPoseActionClient::send_goal, this));
+      std::chrono::milliseconds(500),
+      std::bind(&NavigateToPoseActionClient::send_goal, this));
   }
 
   void send_goal()
@@ -68,13 +68,13 @@ public:
     auto send_goal_options = rclcpp_action::Client<NavigateToPose>::SendGoalOptions();
 
     send_goal_options.goal_response_callback =
-        std::bind(&NavigateToPoseActionClient::goal_response_callback, this, _1);
+      std::bind(&NavigateToPoseActionClient::goal_response_callback, this, _1);
 
     send_goal_options.feedback_callback =
-        std::bind(&NavigateToPoseActionClient::feedback_callback, this, _1, _2);
+      std::bind(&NavigateToPoseActionClient::feedback_callback, this, _1, _2);
 
     send_goal_options.result_callback =
-        std::bind(&NavigateToPoseActionClient::result_callback, this, _1);
+      std::bind(&NavigateToPoseActionClient::result_callback, this, _1);
 
     this->client_ptr_->async_send_goal(goal_msg, send_goal_options);
   }
@@ -93,11 +93,12 @@ private:
   }
 
   void feedback_callback(
-      GoalHandleNavigateToPose::SharedPtr,
-      const std::shared_ptr<const NavigateToPose::Feedback> feedback)
+    GoalHandleNavigateToPose::SharedPtr,
+    const std::shared_ptr<const NavigateToPose::Feedback> feedback)
   {
-    RCLCPP_INFO(this->get_logger(),
-    "Received feedback: distance remaining: %f", feedback->distance_remaining);
+    RCLCPP_INFO(
+      this->get_logger(),
+      "Received feedback: distance remaining: %f", feedback->distance_remaining);
   }
 
   void result_callback(const GoalHandleNavigateToPose::WrappedResult & result)
