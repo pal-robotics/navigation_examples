@@ -15,8 +15,6 @@ find_package(geometry_msgs REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(behaviortree_cpp_v3 REQUIRED)
-find_package(builtin_interfaces REQUIRED)
-find_package(rcl_interfaces REQUIRED)
 
 # Include directories
 include_directories(
@@ -27,8 +25,6 @@ include_directories(
   ${rclcpp_action_INCLUDE_DIRS}
   ${rclcpp_components_INCLUDE_DIRS}
   ${behaviortree_cpp_v3_INCLUDE_DIRS}
-  ${builtin_interfaces_INCLUDE_DIRS}
-  ${rcl_interfaces_INCLUDE_DIRS}
 )
 
 add_executable(dummy_goal_pose_publisher src/dummy_goal_pose_publisher.cpp)
@@ -61,10 +57,6 @@ install(TARGETS ${plugin_libs}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
-)
-
-install(DIRECTORY include/
-  DESTINATION include/
 )
 
 install(FILES goal_navigation_tutorial_nodes.xml DESTINATION share/${PROJECT_NAME})
