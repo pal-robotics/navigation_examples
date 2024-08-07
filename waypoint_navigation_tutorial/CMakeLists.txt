@@ -7,6 +7,7 @@ endif()
 
 # Find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -14,6 +15,8 @@ find_package(nav2_core REQUIRED)
 find_package(nav2_util REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(rclpy REQUIRED)
+find_package(rclcpp_action REQUIRED)
+find_package(rcl_interfaces REQUIRED)
 find_package(pal_nav2_msgs REQUIRED)
      
 set(dependencies
@@ -24,8 +27,12 @@ nav2_core
 nav2_util
 pluginlib
 rclpy
+rclcpp_action
+rcl_interfaces
 pal_nav2_msgs
 )
+
+ament_python_install_package(${PROJECT_NAME})
 
 add_executable(pal_wp_navigation_demo_1  src/pal_wp_navigation_demo_1.cpp)
 add_library(dummy_action_at_waypoint SHARED src/dummy_action_at_waypoint.cpp)
