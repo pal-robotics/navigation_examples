@@ -57,7 +57,7 @@ public:
 
   void deactivate() override
   {
-    RCLCPP_INFO(logger_, "DummyTargetDetector: Deactivating target detector");
+    RCLCPP_INFO(logger_, "Deactivating  %s target detector", plugin_name_.c_str());
   }
 
   bool detectTarget(
