@@ -8,6 +8,7 @@
   <author email="martina.annicelli@pal-robotics.com">Martina Annicelli</author>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
 
   <depend>rclcpp</depend>
   <depend>rclcpp_lifecycle</depend>
@@ -15,6 +16,10 @@
   <depend>nav2_core</depend>
   <depend>nav2_util</depend>
   <depend>pluginlib</depend>
+  <depend>rclpy</depend>
+  <depend>rclcpp_action</depend>
+  <depend>rcl_interfaces</depend>
+  <depend>pal_nav2_msgs</depend>
   
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
