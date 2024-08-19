@@ -2,6 +2,19 @@
 Changelog for package navigation_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'man/feat/target-det-tutorial' into 'main'
+  added target detection tutorial
+  See merge request navigation/navigation_examples!7
+* added target detection tutorial
+* added target detection tutorial
+* Merge branch 'man/feat/wp-nav-tutorial' into 'main'
+  Man/feat/wp nav tutorial
+  See merge request navigation/navigation_examples!3
+* with wp tutorial
+* Contributors: andreacapodacqua, antoniobrandi, martinaannicelli
+
 0.0.1 (2024-08-02)
 ------------------
 * Merge branch 'abr/feat/costmap-filters-tutorial' into 'main'

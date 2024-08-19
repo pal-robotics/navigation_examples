@@ -2,6 +2,9 @@
 Changelog for package costmap_filters_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.0.1 (2024-08-02)
 ------------------
 * Merge branch 'abr/feat/costmap-filters-tutorial' into 'main'
