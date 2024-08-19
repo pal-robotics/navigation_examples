@@ -2,8 +2,8 @@
 Changelog for package goal_navigation_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.0 (2024-08-19)
+------------------
 * Merge branch 'feat/aca/bt-example' into 'main'
   added behavior tree example
   See merge request navigation/navigation_examples!4

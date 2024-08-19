@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="3">
   <name>waypoint_navigation_tutorial</name>
-  <version>0.0.1</version>
+  <version>0.1.0</version>
   <description>The waypoint_navigation_tutorial example.</description>
   <maintainer email="martina.annicelli@pal-robotics.com">Martina Annicelli</maintainer>
   <license>Apache License 2.0</license>

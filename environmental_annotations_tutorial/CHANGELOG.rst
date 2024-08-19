@@ -2,8 +2,8 @@
 Changelog for package environmental_annotations_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.0 (2024-08-19)
+------------------
 * remove elevator from building config
 * Merge branch 'abr/feat/env-annotations' into 'main'
   environmenta annotations package

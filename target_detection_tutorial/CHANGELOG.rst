@@ -2,8 +2,8 @@
 Changelog for package target_detection_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.0 (2024-08-19)
+------------------
 * Merge branch 'man/feat/target-det-tutorial' into 'main'
   added target detection tutorial
   See merge request navigation/navigation_examples!7
