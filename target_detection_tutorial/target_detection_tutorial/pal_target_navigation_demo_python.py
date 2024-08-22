@@ -17,105 +17,102 @@
 # Author: Martina Annicelli
 
 import rclpy
-import time
 from rclpy.node import Node
 from rclpy.action import ActionClient
 from geometry_msgs.msg import PoseWithCovarianceStamped
 from pal_nav2_msgs.action import NavigateToTarget
+from nav2_msgs.srv import SetInitialPose
+import time
 
 
-class TargetNavigationClient(Node):
+class TargetNavigationDemo(Node):
+
     def __init__(self):
-        super().__init__("pal_target_navigation_demo_1")
+        super().__init__('pal_target_navigation_demo_1')
 
-        self.publisher_ = self.create_publisher(
-            PoseWithCovarianceStamped, "/initialpose", 10
-        )
-        self.timer = self.create_timer(1.0, self.publish_initial_pose)
-        self._action_client = ActionClient(self, NavigateToTarget, "navigate_to_target")
-        self._shutdown_called = False
+        self.ac_target_nav = ActionClient(self, NavigateToTarget, 'navigate_to_target')
+        self.ac_set_initial_pose = self.create_client(SetInitialPose, 'set_initial_pose')
 
-    def send_goal(self, goal):
-        self._action_client.wait_for_server()
+        self.get_logger().info("Waiting for action server to start.")
 
-        self._send_goal_future = self._action_client.send_goal_async(
-            goal, feedback_callback=self.feedback_callback
-        )
-        self._send_goal_future.add_done_callback(self.goal_response_callback)
-
-    def feedback_callback(self, feedback_msg):
-        pass
-
-    def goal_response_callback(self, future):
-        goal_handle = future.result()
-        if not goal_handle.accepted:
-            self.get_logger().info("Goal rejected")
+        if not self.ac_set_initial_pose.wait_for_service(timeout_sec=10.0):
+            self.get_logger().error("Service SetInitialPose not available after waiting")
+            rclpy.shutdown()
             return
 
-        self.get_logger().info("Goal accepted")
-        self._result_future = goal_handle.get_result_async()
-        self._result_future.add_done_callback(self.get_result_callback)
+        self.get_logger().info("Service SetInitialPose started, sending goal.")
 
-    def shutdown(self):
-        if not self._shutdown_called and rclpy.ok():
-            self._shutdown_called = True
-            rclpy.shutdown()
-
-    def get_result_callback(self, future):
-        result = future.result().result
-        if result.error_code == NavigateToTarget.Result.NONE:
-            self.get_logger().info("SUCCESS")
-            rclpy.shutdown()
-        else:
-            self.get_logger().info("FAILURE")
-            rclpy.shutdown()
-
-    def publish_initial_pose(self):
+        request = SetInitialPose.Request()
         initial_pose = PoseWithCovarianceStamped()
+
         initial_pose.header.frame_id = "map"
-        initial_pose.pose.pose.position.x = 0.03476977348327637
-        initial_pose.pose.pose.position.y = 2.022066116333008
+        initial_pose.pose.pose.position.x = 0.462
+        initial_pose.pose.pose.position.y = 1.05
         initial_pose.pose.pose.position.z = 0.0
         initial_pose.pose.pose.orientation.x = 0.0
         initial_pose.pose.pose.orientation.y = 0.0
         initial_pose.pose.pose.orientation.z = 0.7920874589023841
         initial_pose.pose.pose.orientation.w = 0.6104076158187772
-        self.publisher_.publish(initial_pose)
+
+        request.pose = initial_pose
+
+        future = self.ac_set_initial_pose.call_async(request)
+        rclpy.spin_until_future_complete(self, future)
+
+        if future.result() is not None:
+            self.get_logger().info("Initial pose set")
+        else:
+            self.get_logger().error("Failed to set initial pose")
+            rclpy.shutdown()
+            return
+
+        time.sleep(5)
+
+        if not self.ac_target_nav.wait_for_server(timeout_sec=10.0):
+            self.get_logger().error("Action server NavigateToTarget not available after waiting")
+            rclpy.shutdown()
+            return
+
+        self.get_logger().info("Action server started, sending goal.")
+
+        goal = NavigateToTarget.Goal()
+        goal.target_id = 0
+        goal.behavior_tree = "navigate_to_target"
+        goal.detector = "aruco_target_detector"
+
+        self._send_goal_future = self.ac_target_nav.send_goal_async(goal)
+        self._send_goal_future.add_done_callback(self.goal_response_callback)
+
+    def goal_response_callback(self, future):
+        goal_handle = future.result()
+
+        if not goal_handle.accepted:
+            self.get_logger().error('Goal rejected')
+            rclpy.shutdown()
+            return
+
+        self.get_logger().info('Goal accepted')
+
+        self._get_result_future = goal_handle.get_result_async()
+        self._get_result_future.add_done_callback(self.get_result_callback)
+
+    def get_result_callback(self, future):
+        result = future.result().result
+        if result:
+            self.get_logger().info('Goal succeeded')
+        else:
+            self.get_logger().error('Goal failed')
+
+        rclpy.shutdown()
 
 
 def main(args=None):
     rclpy.init(args=args)
-    target_navigation_client = TargetNavigationClient()
 
-    # Wait for action server to be available
-    target_navigation_client.get_logger().info("Waiting for action server to start.")
-    if not target_navigation_client._action_client.wait_for_server(timeout_sec=10):
-        target_navigation_client.get_logger().error(
-            "Action server NavigateToTarget not available after waiting"
-        )
-        target_navigation_client.shutdown()
-        return
+    pal_target_navigation_demo = TargetNavigationDemo()
 
-    time.sleep(5)
-    target_navigation_client.get_logger().info("Action server started, sending goal.")
-
-    goal = NavigateToTarget.Goal()
-    goal.target_id = 0
-    goal.behavior_tree = "navigate_to_target"
-    goal.detector = "aruco_target_detector"
-
-    target_navigation_client.send_goal(goal)
-
-    try:
-        # Spin to process callbacks
-        rclpy.spin(target_navigation_client)
-    except KeyboardInterrupt:
-        pass
-    finally:
-        target_navigation_client.shutdown()
-        return 0
+    rclpy.spin(pal_target_navigation_demo)
 
 
-if __name__ == "__main__":
-
+if __name__ == '__main__':
     main()

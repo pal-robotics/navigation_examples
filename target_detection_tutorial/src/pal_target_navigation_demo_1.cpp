@@ -20,6 +20,7 @@
 #include "rclcpp_action/rclcpp_action.hpp"
 #include "geometry_msgs/msg/pose_with_covariance_stamped.hpp"
 #include "pal_nav2_msgs/action/navigate_to_target.hpp"
+#include "nav2_msgs/srv/set_initial_pose.hpp"
 
 int main(int argc, char ** argv)
 {
@@ -27,25 +28,8 @@ int main(int argc, char ** argv)
 
   auto node = std::make_shared<rclcpp::Node>("pal_target_navigation_demo_1");
 
-  rclcpp::Publisher<geometry_msgs::msg::PoseWithCovarianceStamped>::SharedPtr pub =
-    node->create_publisher<geometry_msgs::msg::PoseWithCovarianceStamped>(
-    "/initialpose", 10);
+  rclcpp::sleep_for(std::chrono::seconds(1));
 
-  rclcpp::TimerBase::SharedPtr timer = node->create_wall_timer(
-    std::chrono::seconds(1), [&pub]() -> void {
-      geometry_msgs::msg::PoseWithCovarianceStamped initial_pose;
-
-      initial_pose.header.frame_id = "map";
-      initial_pose.pose.pose.position.x = 0.03476977348327637;
-      initial_pose.pose.pose.position.y = 2.022066116333008;
-      initial_pose.pose.pose.position.z = 0.0;
-      initial_pose.pose.pose.orientation.x = 0.0;
-      initial_pose.pose.pose.orientation.y = 0.0;
-      initial_pose.pose.pose.orientation.z = 0.7920874589023841;
-      initial_pose.pose.pose.orientation.w = 0.6104076158187772;
-
-      pub->publish(initial_pose);
-    });
 
   //  creation of the action clients
   auto ac_target_nav =
@@ -53,32 +37,83 @@ int main(int argc, char ** argv)
     node,
     "navigate_to_target");
 
+  auto ac_set_initial_pose =
+    node->create_client<nav2_msgs::srv::SetInitialPose>("set_initial_pose");
+
   RCLCPP_INFO(node->get_logger(), "Waiting for action server to start.");
 
-  if (!ac_target_nav->wait_for_action_server()) {
+  if (!ac_set_initial_pose->wait_for_service()) {
     RCLCPP_ERROR(
-      node->get_logger(), "Action server NavigateToTarget not available after waiting");
+      node->get_logger(), "Service SetInitialPose not available after waiting");
     rclcpp::shutdown();
   }
-  rclcpp::sleep_for(std::chrono::seconds(5));
-  RCLCPP_INFO(node->get_logger(), "Action server started, sending goal.");
 
-  pal_nav2_msgs::action::NavigateToTarget::Goal goal;
-  goal.target_id = 0;
-  goal.behavior_tree = "navigate_to_target";
-  goal.detector = "aruco_target_detector";
+  RCLCPP_INFO(node->get_logger(), "Service SetInitialPose started, sending goal.");
 
-  auto future = ac_target_nav->async_send_goal(goal);
+  auto request = std::make_shared<nav2_msgs::srv::SetInitialPose::Request>();
+  geometry_msgs::msg::PoseWithCovarianceStamped initial_pose;
+  nav2_msgs::srv::SetInitialPose::Response::SharedPtr srv_response;
 
-  // EXIT
+  initial_pose.header.frame_id = "map";
+  initial_pose.pose.pose.position.x = 0.462;
+  initial_pose.pose.pose.position.y = 1.05;
+  initial_pose.pose.pose.position.z = 0.0;
+  initial_pose.pose.pose.orientation.x = 0.0;
+  initial_pose.pose.pose.orientation.y = 0.0;
+  initial_pose.pose.pose.orientation.z = 0.7920874589023841;
+  initial_pose.pose.pose.orientation.w = 0.6104076158187772;
 
-  auto result = rclcpp::spin_until_future_complete(node, future);
-  if (result != rclcpp::FutureReturnCode::SUCCESS) {
-    RCLCPP_ERROR(node->get_logger(), "Failed to navigate to target");
-    return false;
+  request->pose = initial_pose;
+
+  srv_response.reset();
+
+  auto response_callback =
+    [node, &srv_response](rclcpp::Client<nav2_msgs::srv::SetInitialPose>::SharedFuture future_1) {
+      try {
+        auto response = future_1.get();
+        if (response) {
+          srv_response = response;
+        } else {
+          RCLCPP_ERROR(node->get_logger(), "Received empty response");
+          srv_response = nullptr;
+        }
+      } catch (const std::exception & e) {
+        RCLCPP_ERROR(
+          node->get_logger(), "Exception while waiting for response: %s",
+          e.what());
+        srv_response = nullptr;
+      }
+    };
+
+  auto status = ac_set_initial_pose->async_send_request(request, response_callback);
+  auto result_1 = rclcpp::spin_until_future_complete(node, status);
+
+  if (result_1 == rclcpp::FutureReturnCode::SUCCESS) {
+    RCLCPP_INFO(node->get_logger(), "Initial pose set");
+    rclcpp::sleep_for(std::chrono::seconds(5));
+    if (!ac_target_nav->wait_for_action_server()) {
+      RCLCPP_ERROR(
+        node->get_logger(), "Action server NavigateToTarget not available after waiting");
+      rclcpp::shutdown();
+    }
+
+    RCLCPP_INFO(node->get_logger(), "Action server started, sending goal.");
+
+    pal_nav2_msgs::action::NavigateToTarget::Goal goal;
+    goal.target_id = 0;
+    goal.behavior_tree = "navigate_to_target";
+    goal.detector = "aruco_target_detector";
+
+    auto future_2 = ac_target_nav->async_send_goal(goal);
+
+    // EXIT
+
+    auto result_2 = rclcpp::spin_until_future_complete(node, future_2);
+    if (result_2 != rclcpp::FutureReturnCode::SUCCESS) {
+      RCLCPP_ERROR(node->get_logger(), "Failed to navigate to target");
+      rclcpp::shutdown();
+    }
   }
-
-  timer->cancel();
   rclcpp::shutdown();
-  return true;
+  return 0;
 }
