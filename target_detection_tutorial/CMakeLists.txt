@@ -34,8 +34,9 @@ if(BUILD_TESTING)
   set(ament_cmake_cpplint_FOUND TRUE)
 endif()
 
+ament_export_libraries(dummy_target_detector)
+ament_export_dependencies(${dependencies})
 pluginlib_export_plugin_description_file(pal_nav2_core plugins.xml)
-
 ament_package()
 
 
