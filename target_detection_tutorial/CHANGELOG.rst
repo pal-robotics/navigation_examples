@@ -2,8 +2,8 @@
 Changelog for package target_detection_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.1 (2024-08-23)
+------------------
 * Merge branch 'abr/fix/export-deps' into 'main'
   fix missing exports
   See merge request navigation/navigation_examples!11
