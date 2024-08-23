@@ -35,7 +35,7 @@ if(BUILD_TESTING)
 endif()
 
 pluginlib_export_plugin_description_file(pal_nav2_core plugins.xml)
-
+ament_export_dependencies(${dependencies})
 ament_package()
 
 
