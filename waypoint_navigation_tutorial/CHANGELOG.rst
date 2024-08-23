@@ -2,6 +2,9 @@
 Changelog for package waypoint_navigation_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.1.0 (2024-08-19)
 ------------------
 * Merge branch 'man/feat/target-det-tutorial' into 'main'

@@ -2,6 +2,9 @@
 Changelog for package navigation_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.1.0 (2024-08-19)
 ------------------
 * Merge branch 'man/feat/target-det-tutorial' into 'main'

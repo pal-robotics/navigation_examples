@@ -2,6 +2,15 @@
 Changelog for package target_detection_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'abr/fix/export-deps' into 'main'
+  fix missing exports
+  See merge request navigation/navigation_examples!11
+* Update CMakeLists.txt
+* Update CMakeLists.txt
+* Contributors: antoniobrandi
+
 0.1.0 (2024-08-19)
 ------------------
 * Merge branch 'man/feat/target-det-tutorial' into 'main'
