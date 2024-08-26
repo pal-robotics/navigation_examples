@@ -69,9 +69,9 @@ int main(int argc, char ** argv)
   srv_response.reset();
 
   auto response_callback =
-    [node, &srv_response](rclcpp::Client<nav2_msgs::srv::SetInitialPose>::SharedFuture future_1) {
+    [node, &srv_response](rclcpp::Client<nav2_msgs::srv::SetInitialPose>::SharedFuture pose_response) {
       try {
-        auto response = future_1.get();
+        auto response = pose_response.get();
         if (response) {
           srv_response = response;
         } else {
@@ -87,9 +87,9 @@ int main(int argc, char ** argv)
     };
 
   auto status = ac_set_initial_pose->async_send_request(request, response_callback);
-  auto result_1 = rclcpp::spin_until_future_complete(node, status);
+  auto pose_result = rclcpp::spin_until_future_complete(node, status);
 
-  if (result_1 == rclcpp::FutureReturnCode::SUCCESS) {
+  if (pose_result == rclcpp::FutureReturnCode::SUCCESS) {
     RCLCPP_INFO(node->get_logger(), "Initial pose set");
     rclcpp::sleep_for(std::chrono::seconds(5));
     if (!ac_target_nav->wait_for_action_server()) {
@@ -105,12 +105,12 @@ int main(int argc, char ** argv)
     goal.behavior_tree = "navigate_to_target";
     goal.detector = "aruco_target_detector";
 
-    auto future_2 = ac_target_nav->async_send_goal(goal);
+    auto target_response = ac_target_nav->async_send_goal(goal);
 
     // EXIT
 
-    auto result_2 = rclcpp::spin_until_future_complete(node, future_2);
-    if (result_2 != rclcpp::FutureReturnCode::SUCCESS) {
+    auto target_result = rclcpp::spin_until_future_complete(node, target_response);
+    if (target_result != rclcpp::FutureReturnCode::SUCCESS) {
       RCLCPP_ERROR(node->get_logger(), "Failed to navigate to target");
       rclcpp::shutdown();
     }
