@@ -25,33 +25,13 @@ set(dependencies
   pal_nav2_core
   pluginlib
   tf2_ros
-  geometry_msgs
-  pal_nav2_msgs
-  rclcpp_action
-  rclpy
 )
 
-ament_python_install_package(${PROJECT_NAME})
-
-add_executable(pal_target_navigation_demo_1  src/pal_target_navigation_demo_1.cpp)
 add_library(dummy_target_detector SHARED src/dummy_target_detector.cpp)
 ament_target_dependencies(dummy_target_detector ${dependencies})
 
-ament_target_dependencies(pal_target_navigation_demo_1
-  ${dependencies}
-)
-
-install(TARGETS pal_target_navigation_demo_1
-  RUNTIME DESTINATION lib/${PROJECT_NAME}
-)
-
 install(TARGETS dummy_target_detector
   DESTINATION lib/${PROJECT_NAME})
-
-install(PROGRAMS
-  ${PROJECT_NAME}/pal_target_navigation_demo_python.py
-  DESTINATION lib/${PROJECT_NAME}
-)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
