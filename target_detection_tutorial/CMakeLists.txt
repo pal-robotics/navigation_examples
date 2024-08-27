@@ -12,12 +12,6 @@ find_package(rclcpp_lifecycle REQUIRED)
 find_package(pal_nav2_core REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(tf2_ros REQUIRED)
-find_package(ament_cmake_python REQUIRED)
-find_package(geometry_msgs REQUIRED)
-find_package(pal_nav2_msgs REQUIRED)
-find_package(rclcpp_action REQUIRED)
-find_package(rclpy REQUIRED)
-
 
 set(dependencies
   rclcpp
