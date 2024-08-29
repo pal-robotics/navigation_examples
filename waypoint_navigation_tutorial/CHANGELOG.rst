@@ -2,6 +2,14 @@
 Changelog for package waypoint_navigation_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'man/feat/target-nav' into 'main'
+  removed demo
+  See merge request navigation/navigation_examples!12
+* removed demo
+* Contributors: andreacapodacqua, martinaannicelli
+
 0.1.1 (2024-08-23)
 ------------------
 

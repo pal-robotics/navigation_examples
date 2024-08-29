@@ -2,6 +2,22 @@
 Changelog for package target_detection_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'man/feat/target-nav' into 'main'
+  removed demo
+  See merge request navigation/navigation_examples!12
+* removed demo
+* removed demo
+* Merge branch 'man/feat/target-nav' into 'main'
+  added target demo code
+  See merge request navigation/navigation_examples!10
+* renames
+* Apply 1 suggestion(s) to 1 file(s)
+* with target demo
+* improved target det
+* Contributors: andreacapodacqua, antoniobrandi, martinaannicelli
+
 0.1.1 (2024-08-23)
 ------------------
 * Merge branch 'abr/fix/export-deps' into 'main'

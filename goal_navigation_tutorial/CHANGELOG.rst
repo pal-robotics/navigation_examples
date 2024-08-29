@@ -2,6 +2,9 @@
 Changelog for package goal_navigation_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.1.1 (2024-08-23)
 ------------------
 
