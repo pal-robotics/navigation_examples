@@ -77,7 +77,7 @@ public:
     return true;
   }
 
-  bool isValidTime(const rclcpp::Duration &)
+  bool isValidTime(const rclcpp::Duration &) override
   {
     return true;
   }
