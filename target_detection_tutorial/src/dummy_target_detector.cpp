@@ -77,6 +77,11 @@ public:
     return true;
   }
 
+  bool isValidTime(const rclcpp::Duration &)
+  {
+    return true;
+  }
+
 private:
   rclcpp::Logger logger_{rclcpp::get_logger("dummy_target_detector")};
   rclcpp_lifecycle::LifecycleNode::WeakPtr parent_;
