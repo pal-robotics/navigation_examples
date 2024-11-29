@@ -2,6 +2,9 @@
 Changelog for package navigation_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.1.2 (2024-08-29)
 ------------------
 
