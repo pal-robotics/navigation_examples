@@ -2,8 +2,8 @@
 Changelog for package target_detection_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.0 (2024-11-29)
+------------------
 * Merge branch 'abr/feat/detection-tolerance' into 'main'
   add isValidTime function
   See merge request navigation/navigation_examples!13
