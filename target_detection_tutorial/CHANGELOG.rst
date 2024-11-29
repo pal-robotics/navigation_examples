@@ -2,6 +2,14 @@
 Changelog for package target_detection_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'abr/fix/override-base-class' into 'main'
+  override base class
+  See merge request navigation/navigation_examples!14
+* override base class
+* Contributors: antoniobrandi
+
 0.2.0 (2024-11-29)
 ------------------
 * Merge branch 'abr/feat/detection-tolerance' into 'main'
