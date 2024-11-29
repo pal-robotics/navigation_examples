@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="3">
   <name>navigation_examples</name>
-  <version>0.2.0</version>
+  <version>0.2.1</version>
   <description>The navigation_examples metapkg for ROS 2</description>
   <author email="andrea.capodacqua@pal-robotics.com">Andrea Capodacqua</author>
   <maintainer email="andrea.capodacqua@pal-robotics.com">Andrea Capodacqua</maintainer>

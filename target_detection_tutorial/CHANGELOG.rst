@@ -2,8 +2,8 @@
 Changelog for package target_detection_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.1 (2024-11-29)
+------------------
 * Merge branch 'abr/fix/override-base-class' into 'main'
   override base class
   See merge request navigation/navigation_examples!14
