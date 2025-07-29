@@ -2,6 +2,9 @@
 Changelog for package environmental_annotations_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.2.1 (2024-11-29)
 ------------------
 

@@ -2,6 +2,11 @@
 Changelog for package target_detection_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* adjusted for detection of multiple aruco markers
+* Contributors: SalvatorePiccolo
+
 0.2.1 (2024-11-29)
 ------------------
 * Merge branch 'abr/fix/override-base-class' into 'main'
