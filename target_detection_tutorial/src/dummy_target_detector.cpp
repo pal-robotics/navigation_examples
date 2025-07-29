@@ -16,6 +16,8 @@
 
 #include <memory>
 #include <string>
+#include <unordered_map>
+#include <utility>
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp/clock.hpp"
 #include "rclcpp_lifecycle/lifecycle_node.hpp"
@@ -60,19 +62,33 @@ public:
     RCLCPP_INFO(logger_, "Deactivating  %s target detector", plugin_name_.c_str());
   }
 
-  bool detectTarget(
-    int id, geometry_msgs::msg::TransformStamped & transform,
-    double & accuracy) override
+  bool detectTarget (
+      const std::vector<int> & requested_ids,
+      std::unordered_map<int, std::pair<geometry_msgs::msg::TransformStamped,
+      double>> & detected_targets)
+     override
   {
+    if(requested_ids.size() != 1) {
+      RCLCPP_ERROR(logger_, "request precisely one id!");
+      return false;
+    }
+    
+    int id = requested_ids.at(0);
+    
     if (id != 0) {
       RCLCPP_WARN(logger_, "%s: Target not detected", plugin_name_.c_str());
       return false;
     }
-    accuracy = 0.8;
+    
+    geometry_msgs::msg::TransformStamped transform;
+    double accuracy = 0.8;
+
     transform.header.frame_id = "base_footprint";
     transform.child_frame_id = "target";
     transform.header.stamp = clock_->now();
     transform.transform.translation.x = 2.0;
+
+    detected_targets[id] = std::make_pair(transform, accuracy);
 
     return true;
   }
