@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>environmental_annotations_tutorial</name>
-  <version>0.2.1</version>
+  <version>1.0.0</version>
   <description>Tutorial package for the creation of Environmental Annotations</description>
   <maintainer email="antonio.brandi@pal-robotics.com">Antonio Brandi</maintainer>
   <license>Apache License 2.0</license>
