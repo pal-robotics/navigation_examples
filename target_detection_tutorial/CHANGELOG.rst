@@ -2,8 +2,8 @@
 Changelog for package target_detection_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.1 (2025-07-30)
+------------------
 * temporary diable target detection
 * Contributors: antoniobrandi
 
