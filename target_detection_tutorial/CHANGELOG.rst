@@ -2,8 +2,8 @@
 Changelog for package target_detection_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.2 (2025-07-30)
+------------------
 * restore functionalities
 * Contributors: antoniobrandi
 
