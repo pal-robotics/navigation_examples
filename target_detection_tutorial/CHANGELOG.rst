@@ -2,6 +2,11 @@
 Changelog for package target_detection_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* temporary diable target detection
+* Contributors: antoniobrandi
+
 1.0.0 (2025-07-29)
 ------------------
 * adjusted for detection of multiple aruco markers
