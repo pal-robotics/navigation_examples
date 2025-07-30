@@ -29,67 +29,67 @@ namespace goal_navigation_tutorial
 class LogPrinter : public BT::AsyncActionNode
 {
 public:
-   /**
-   * @brief A constructor for goal_navigation_tutorial::LogPrinter
-   *
-   * @param xml_tag_name Name for the XML tag for this node
-   * @param conf  BT node configuration
-   */
-   LogPrinter(
-      const std::string & xml_tag_name,
-      const BT::NodeConfiguration & conf)
-   : BT::AsyncActionNode(xml_tag_name, conf)
-   {
-      node_ = config().blackboard->get<rclcpp::Node::SharedPtr>("node");
-      getInput("log_text", log_text_);
-      getInput("log_level", log_level_);
+  /**
+  * @brief A constructor for goal_navigation_tutorial::LogPrinter
+  *
+  * @param xml_tag_name Name for the XML tag for this node
+  * @param conf  BT node configuration
+  */
+  LogPrinter(
+    const std::string & xml_tag_name,
+    const BT::NodeConfiguration & conf)
+  : BT::AsyncActionNode(xml_tag_name, conf)
+  {
+    node_ = config().blackboard->get<rclcpp::Node::SharedPtr>("node");
+    getInput("log_text", log_text_);
+    getInput("log_level", log_level_);
 
-      if (log_text_.empty()) {
-            RCLCPP_WARN(node_->get_logger(), "LogPrinter: log_text is empty");
-      }
-      if (log_level_.empty()) {
-            RCLCPP_WARN(node_->get_logger(), "LogPrinter: log_level is empty, setting to INFO");
-            log_level_ = "INFO";
-      }
-   }
+    if (log_text_.empty()) {
+      RCLCPP_WARN(node_->get_logger(), "LogPrinter: log_text is empty");
+    }
+    if (log_level_.empty()) {
+      RCLCPP_WARN(node_->get_logger(), "LogPrinter: log_level is empty, setting to INFO");
+      log_level_ = "INFO";
+    }
+  }
 
-   /**
-   * @brief Creates list of BT ports
-   * @return BT::PortsList Containing basic ports along with node-specific ports
-   */
-   static BT::PortsList providedPorts()
-   {
-      return
+  /**
+  * @brief Creates list of BT ports
+  * @return BT::PortsList Containing basic ports along with node-specific ports
+  */
+  static BT::PortsList providedPorts()
+  {
+    return
       {
-            BT::InputPort<std::string>("log_text", "Text to be logged"),
-            BT::InputPort<std::string>("log_level", "Log level (INFO, WARN, ERROR)"),
+        BT::InputPort<std::string>("log_text", "Text to be logged"),
+        BT::InputPort<std::string>("log_level", "Log level (INFO, WARN, ERROR)"),
       };
-   }
+  }
 
 private:
-   /**
-   * @brief Function to perform some user-defined operation on tick
-   */
-   BT::NodeStatus tick() override
-   {
-      if (log_level_ == "INFO") {
-            RCLCPP_INFO(node_->get_logger(), "%s", log_text_.c_str());
-            return BT::NodeStatus::SUCCESS;
-      } else if (log_level_ == "WARN") {
-            RCLCPP_WARN(node_->get_logger(), "%s", log_text_.c_str());
-            return BT::NodeStatus::SUCCESS;
-      } else if (log_level_ == "ERROR") {
-            RCLCPP_ERROR(node_->get_logger(), "%s", log_text_.c_str());
-            return BT::NodeStatus::SUCCESS;
-      } else {
-            RCLCPP_ERROR(node_->get_logger(), "Invalid log level: %s", log_level_.c_str());
-            return BT::NodeStatus::FAILURE;
-      }
-   }
+  /**
+  * @brief Function to perform some user-defined operation on tick
+  */
+  BT::NodeStatus tick() override
+  {
+    if (log_level_ == "INFO") {
+      RCLCPP_INFO(node_->get_logger(), "%s", log_text_.c_str());
+      return BT::NodeStatus::SUCCESS;
+    } else if (log_level_ == "WARN") {
+      RCLCPP_WARN(node_->get_logger(), "%s", log_text_.c_str());
+      return BT::NodeStatus::SUCCESS;
+    } else if (log_level_ == "ERROR") {
+      RCLCPP_ERROR(node_->get_logger(), "%s", log_text_.c_str());
+      return BT::NodeStatus::SUCCESS;
+    } else {
+      RCLCPP_ERROR(node_->get_logger(), "Invalid log level: %s", log_level_.c_str());
+      return BT::NodeStatus::FAILURE;
+    }
+  }
 
-   std::string log_text_;
-   std::string log_level_;
-   rclcpp::Node::SharedPtr node_;
+  std::string log_text_;
+  std::string log_level_;
+  rclcpp::Node::SharedPtr node_;
 };
 
 }  // namespace goal_navigation_tutorial
@@ -98,5 +98,5 @@ private:
 
 BT_REGISTER_NODES(factory)
 {
-   factory.registerNodeType<goal_navigation_tutorial::LogPrinter>("LogPrinter");
+  factory.registerNodeType<goal_navigation_tutorial::LogPrinter>("LogPrinter");
 }
