@@ -2,6 +2,11 @@
 Changelog for package target_detection_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* restore functionalities
+* Contributors: antoniobrandi
+
 1.0.1 (2025-07-30)
 ------------------
 * temporary diable target detection

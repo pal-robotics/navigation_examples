@@ -2,6 +2,9 @@
 Changelog for package costmap_filters_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 1.0.1 (2025-07-30)
 ------------------
 
