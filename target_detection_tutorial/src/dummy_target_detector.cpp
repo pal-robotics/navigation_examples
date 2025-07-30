@@ -35,7 +35,7 @@ public:
 
   void configure(
     const rclcpp_lifecycle::LifecycleNode::WeakPtr & parent, std::string name,
-    std::shared_ptr<tf2_ros::Buffer> ) override
+    std::shared_ptr<tf2_ros::Buffer>) override
   {
     parent_ = parent;
     auto node = parent_.lock();
@@ -63,30 +63,23 @@ public:
   }
 
   bool detectTarget(
-    int, geometry_msgs::msg::TransformStamped &,
-    double &)
+    const std::vector<int> & requested_ids,
+    std::unordered_map<int, std::pair<geometry_msgs::msg::TransformStamped,
+    double>> & detected_targets)
+  override
   {
-    RCLCPP_ERROR(logger_, "Deprecated!");
-    return false;
-  }
-
-  bool detectTarget (
-      const std::vector<int> & requested_ids,
-      std::unordered_map<int, std::pair<geometry_msgs::msg::TransformStamped,
-      double>> & detected_targets)
-  {
-    if(requested_ids.size() != 1) {
+    if (requested_ids.size() != 1) {
       RCLCPP_ERROR(logger_, "request precisely one id!");
       return false;
     }
-    
+
     int id = requested_ids.at(0);
-    
+
     if (id != 0) {
       RCLCPP_WARN(logger_, "%s: Target not detected", plugin_name_.c_str());
       return false;
     }
-    
+
     geometry_msgs::msg::TransformStamped transform;
     double accuracy = 0.8;
 
