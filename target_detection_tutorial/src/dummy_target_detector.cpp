@@ -62,11 +62,18 @@ public:
     RCLCPP_INFO(logger_, "Deactivating  %s target detector", plugin_name_.c_str());
   }
 
+  bool detectTarget(
+    int, geometry_msgs::msg::TransformStamped &,
+    double &)
+  {
+    RCLCPP_ERROR(logger_, "Deprecated!");
+    return false;
+  }
+
   bool detectTarget (
       const std::vector<int> & requested_ids,
       std::unordered_map<int, std::pair<geometry_msgs::msg::TransformStamped,
       double>> & detected_targets)
-     override
   {
     if(requested_ids.size() != 1) {
       RCLCPP_ERROR(logger_, "request precisely one id!");
